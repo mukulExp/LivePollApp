@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import { toast,ToastContainer } from 'react-toastify';
+import config from './../config';
 import axios from 'axios';
 
 
@@ -12,7 +13,6 @@ function Login() {
   
     const [error, setError] = React.useState({ email: "", password: "" });
     const history = useNavigate();
-    const apiUrl = 'http://localhost:3001/';
 
 
     
@@ -59,7 +59,7 @@ function Login() {
         e.preventDefault();
       if(validateEmail )
       {
-        let response =  await axios.post(`${apiUrl}api/sign_in`,account)
+        let response =  await axios.post(`${config.apiUrl}api/sign_in`,account)
 
         if(response.data.status)
         {

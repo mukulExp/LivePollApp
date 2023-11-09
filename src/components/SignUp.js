@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import config from './../config';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -14,7 +15,6 @@ function SignUp() {
     const [error, setError] = React.useState({email :"", username: "", password: "" });
     const history = useNavigate();
 
-    const apiUrl = 'http://localhost:3001/';
 
     useEffect(()=>{
         checkAuth()
@@ -77,7 +77,7 @@ function SignUp() {
      
       if (validatePassword() && validateEmail && validateUsername)
       {
-        let response =  await axios.post(`${apiUrl}api/sign_up`,account)
+        let response =  await axios.post(`${config.apiUrl}api/sign_up`,account)
 
         if(response.data.status)
         {
