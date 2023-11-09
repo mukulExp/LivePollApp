@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-const socket = io('http://localhost:3001');
+const socket = io('https://h53wk2-3001.csb.app/');
 const axiosInstance = axios.create({
   baseURL: config.apiUrl,
   headers: {

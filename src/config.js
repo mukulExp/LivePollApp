@@ -1,3 +1,3 @@
 module.exports = {
- apiUrl : 'http://localhost:3001/'
+ apiUrl : 'https://h53wk2-3001.csb.app/'
 }
