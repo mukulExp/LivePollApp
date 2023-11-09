@@ -10,6 +10,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 const socket = io('http://localhost:3001');
+const axiosInstance = axios.create({
+  baseURL: config.apiUrl,
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem('uToken')}`
+  }
+});
 
 function Home() {
   const [pollOptions, setPollOptions] = useState({});
@@ -21,11 +27,11 @@ function Home() {
   useEffect(()=>{
    getPolls();
    getChatHistory();
-  },[]) 
+  },[])
 
   const getPolls =async ()=>{
    try{ 
-   let pollData = await axios.get(`${config.apiUrl}api/polls`,{});
+   let pollData = await axiosInstance.get(`${config.apiUrl}api/polls`,{});
    setPoll(pollData.data);
   }catch(error)
   {
@@ -34,7 +40,7 @@ function Home() {
   }
   const getChatHistory = async ()=>{
    try{
-   let chats = await axios.get(`${config.apiUrl}api/chats`,{});
+   let chats = await axiosInstance.get(`${config.apiUrl}api/chats`,{});
    if(chats.data.status)
    {
     setChatMessages(chats.data?.data);      
