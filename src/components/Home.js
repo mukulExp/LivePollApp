@@ -10,12 +10,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const socket = io('https://h53wk2-3001.csb.app/');
-const axiosInstance = axios.create({
-  baseURL: config.apiUrl,
-  headers: {
-    'Authorization': `Bearer ${localStorage.getItem('uToken')}`
-  }
-});
 
 function Home() {
   const [pollOptions, setPollOptions] = useState({});
@@ -27,7 +21,14 @@ function Home() {
   useEffect(()=>{
    getPolls();
    getChatHistory();
-  },[])
+  },[]);
+
+  const axiosInstance = axios.create({
+    baseURL: config.apiUrl,
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('uToken')}`
+    }
+  });
 
   const getPolls =async ()=>{
    try{ 
