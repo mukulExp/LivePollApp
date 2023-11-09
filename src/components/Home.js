@@ -19,12 +19,30 @@ function Home() {
   const [isTyping,setIsTyping] = useState('');
   const [poll,setPoll] = useState([]);
   useEffect(()=>{
-   getPolls()
+   getPolls();
+   getChatHistory();
   },[]) 
 
   const getPolls =async ()=>{
+   try{ 
    let pollData = await axios.get(`${config.apiUrl}api/polls`,{});
    setPoll(pollData.data);
+  }catch(error)
+  {
+    console.log(error)
+  }
+  }
+  const getChatHistory = async ()=>{
+   try{
+   let chats = await axios.get(`${config.apiUrl}api/chats`,{});
+   if(chats.data.status)
+   {
+    setChatMessages(chats.data?.data);      
+   }
+   }catch(error)
+   {
+      console.log(error)
+   }
   }
   useEffect(()=>{
     if(!message)
@@ -46,7 +64,6 @@ function Home() {
     },[]);
 
     socket.on('chatMessages', (messages) => {
-      console.log("messages...",messages)
       setChatMessages(messages);
     });
 
